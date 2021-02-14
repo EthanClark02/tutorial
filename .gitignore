@@ -1,0 +1,3 @@
+# Django Project gitignore file
+
+db.sqlite3
