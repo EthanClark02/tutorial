@@ -1,8 +1,11 @@
-# base is the latest Python container on DockerHub
+# Base image
 FROM python:latest
-# update pip, the Python package manager; may not be necessary but won't hurt
-RUN pip3 install --upgrade pip
-# install Django into the root Python; RUN runs INSIDE the container as root
-RUN pip3 install django
-# set working directory for when the image is spun up in a container
+# update pip
+ENV PYTHONUNBUFFERED=1
+RUN pip3 install --upgrade pip & \
+  pip3 install django mysqlclient
+ENV MYSQL_MAJOR 8.0
+RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 8C718D3B5072E1F5 & \
+  echo "deb http://repo.mysql.com/apt/debian/ buster mysql-${MYSQL_MAJOR}" > /etc/apt/sources.list.d/mysql.list & apt-get update & \
+  apt-get -y --no-install-recommends install default-libmysqlclient-dev
 WORKDIR /src

@@ -1,0 +1,6 @@
+{
+    "json.schemas": [
+    
+    ],
+    "python.linting.pylintArgs": ["--generate-members"]
+}
